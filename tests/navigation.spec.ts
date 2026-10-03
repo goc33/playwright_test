@@ -1,11 +1,10 @@
 import { expect, test } from '@playwright/test'
+import { LoginPage } from '../pageobjects/LoginPage'
 
 test('check_left_menu_options', async ({ page }) => {
 
-    await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    await page.getByRole('textbox', { name: 'Username' }).fill('Admin')
-    await page.getByRole('textbox', { name: 'Password' }).fill('admin123')
-    await page.getByRole('button', { name: 'Login' }).click()
+    const loginPage = new LoginPage(page)
+    await loginPage.doLogin('Admin', 'admin123')
     await page.getByRole('heading', { name: 'Dashboard' }).isVisible()
 
     const list = page.getByRole('navigation', { name: 'Sidepanel' }).getByRole('list').getByRole('listitem')
@@ -40,10 +39,8 @@ test('check_left_menu_options', async ({ page }) => {
 
 test('navigate_left_panel', async ({ page }) => {
 
-    await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    await page.getByRole('textbox', { name: 'Username' }).fill('Admin')
-    await page.getByRole('textbox', { name: 'Password' }).fill('admin123')
-    await page.getByRole('button', { name: 'Login' }).click()
+    const loginPage = new LoginPage(page)
+    await loginPage.doLogin('Admin', 'admin123')
     await page.getByRole('heading', { name: 'Dashboard' }).isVisible()
 
     const list = page.getByRole('navigation', { name: 'Sidepanel' }).getByRole('list').getByRole('listitem')
@@ -69,10 +66,8 @@ test('navigate_left_panel', async ({ page }) => {
 
 test('check_qualifications_urls', async ({ page }) => {
 
-    await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    await page.getByRole('textbox', { name: 'Username' }).fill('Admin')
-    await page.getByRole('textbox', { name: 'Password' }).fill('admin123')
-    await page.getByRole('button', { name: 'Login' }).click()
+    const loginPage = new LoginPage(page)
+    await loginPage.doLogin('Admin', 'admin123')
     await page.getByRole('heading', { name: 'Dashboard' }).isVisible()
     await page.getByRole('navigation', { name: 'Sidepanel' }).getByRole('list').getByRole('listitem').getByText('Admin').click()
 
@@ -125,10 +120,8 @@ test('check_organization_urls', async ({ page }) => {
         }
     ]
 
-    await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    await page.getByRole('textbox', { name: 'Username' }).fill('Admin')
-    await page.getByRole('textbox', { name: 'Password' }).fill('admin123')
-    await page.getByRole('button', { name: 'Login' }).click()
+    const loginPage = new LoginPage(page)
+    await loginPage.doLogin('Admin', 'admin123')
     await page.getByRole('heading', { name: 'Dashboard' }).isVisible()
     await page.getByRole('navigation', { name: 'Sidepanel' }).getByRole('list').getByRole('listitem').getByText('Admin').click()
 

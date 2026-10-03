@@ -1,11 +1,11 @@
 import { expect, test } from '@playwright/test'
+import { LoginPage } from '../pageobjects/LoginPage'
 
 test('get_usernames', async ({ page }) => {
 
-    await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    await page.getByRole('textbox', { name: 'Username' }).fill('Admin')
-    await page.getByRole('textbox', { name: 'Password' }).fill('admin123')
-    await page.getByRole('button', { name: 'Login' }).click()
+    const loginPage = new LoginPage(page)
+    await loginPage.doLogin('Admin', 'admin123')
+
     await page.getByRole('heading', { name: 'Dashboard' }).isVisible()
     await page.getByRole('link', { name: 'Admin' }).click()
     await page.getByRole('navigation', { name: 'Topbar Menu' }).getByText("User Management").click()
@@ -28,11 +28,10 @@ test('get_usernames', async ({ page }) => {
 
 test('edit_hardcoded_user', async ({ page }) => {
 
-    const user = 'Test33'
-    await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    await page.getByRole('textbox', { name: 'Username' }).fill('Admin')
-    await page.getByRole('textbox', { name: 'Password' }).fill('admin123')
-    await page.getByRole('button', { name: 'Login' }).click()
+    const user = 'Jobinsam@6742'
+    const loginPage = new LoginPage(page)
+    await loginPage.doLogin('Admin', 'admin123')
+
     await page.getByRole('heading', { name: 'Dashboard' }).isVisible()
     await page.getByRole('link', { name: 'Admin' }).click()
     await page.getByRole('navigation', { name: 'Topbar Menu' }).getByText("User Management").click()
@@ -46,10 +45,9 @@ test('edit_hardcoded_user', async ({ page }) => {
 
 test('edit_random_user', async ({ page }) => {
 
-    await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    await page.getByRole('textbox', { name: 'Username' }).fill('Admin')
-    await page.getByRole('textbox', { name: 'Password' }).fill('admin123')
-    await page.getByRole('button', { name: 'Login' }).click()
+    const loginPage = new LoginPage(page)
+    await loginPage.doLogin('Admin', 'admin123')
+
     await page.getByRole('heading', { name: 'Dashboard' }).isVisible()
     await page.getByRole('link', { name: 'Admin' }).click()
     await page.getByRole('navigation', { name: 'Topbar Menu' }).getByText("User Management").click()

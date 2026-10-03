@@ -1,0 +1,23 @@
+import { Locator, Page } from '@playwright/test'
+
+export class LoginPage {
+
+    readonly page: Page
+    readonly usernameInput: Locator
+    readonly passwordInput: Locator
+    readonly loginButton: Locator
+
+    constructor(page: Page) {
+        this.page = page
+        this.usernameInput = page.getByRole('textbox', { name: 'Username' })
+        this.passwordInput = page.getByRole('textbox', { name: 'Password' })
+        this.loginButton = page.getByRole('button', { name: 'Login' })
+    }
+
+    async doLogin(username: string, password: string) {
+        await this.page.goto('/web/index.php/auth/login')
+        await this.page.getByRole('textbox', { name: 'Username' }).fill(username)
+        await this.page.getByRole('textbox', { name: 'Password' }).fill(password)
+        await this.page.getByRole('button', { name: 'Login' }).click()
+    }
+}
